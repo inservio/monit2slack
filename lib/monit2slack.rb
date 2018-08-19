@@ -89,7 +89,7 @@ module Monit2Slack
     options[:username] ||= username
 
     attachment = {
-      fallback: "Everything looks peachy",
+      fallback: "#{options[:status]} status from Monit",
       text: options[:text],
       color: options[:color]
     }
