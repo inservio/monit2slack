@@ -103,7 +103,7 @@ module Monit2Slack
         defaults channel: options[:channel],
         username: options[:username]
       end
-      notifier.post text: "Message from Monit: #{ENV['MONIT_DESCRIPTION']}", icon_emoji: options[:emoji] if options[:text] && options[:emoji]
+      notifier.post text: "Message from Monit: #{ENV['MONIT_SERVICE']} #{ENV['MONIT_DESCRIPTION']}", icon_emoji: options[:emoji] if options[:text] && options[:emoji]
       notifier.post attachments: [attachment] if attachment
       notifier.ping options[:ping] if options[:ping]
     end
