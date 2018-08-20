@@ -26,6 +26,12 @@ This gem provides a binary `monit2slack`.
 monit2slack --webhook 'https://hooks.slack.com/services/xxx/xxx/xxx' --host MyServer --service NginX --status error --text 'Process NginX is down'
 ````
 
+If using `rbenv`
+
+````
+/usr/local/rbenv/shims/monit2slack --webhook 'https://hooks.slack.com/services/xxx/xxx/xxx' --host MyServer --service NginX --status error --text 'Process NginX is down'
+````
+
 If you prefer you can call if manually from a rb file.
 
 ````
