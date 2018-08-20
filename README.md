@@ -44,13 +44,32 @@ Monit2Slack::Post
 
 ## Monit configuration file
 
+### Implicit configuration
+
+In this case `hostname`, `service` and `description` gets read from the environment variables that monit provides.
+
 ````
 check process NginX
   with pidfile /run/nginx.pid
   start program = "/etc/init.d/nginx start" with timeout 30 seconds
   stop program = "/etc/init.d/nginx stop" with timeout 30 seconds
   if does not exist for 1 cycle
-    then exec "monit2slack --webhook 'https://hooks.slack.com/services/xxx/xxx/xxx' --host MyServer --service NginX --status error --text 'Process NginX is down'"
+    then exec "/usr/local/rbenv/shims/monit2slack --webhook 'https://hooks.slack.com/services/xxx/xxx/xxx' --status error'"
+    else if succeeded for 1 cycle then exec "/usr/local/rbenv/shims/monit2slack --webhook 'https://hooks.slack.com/services/xxx/xxx/xxx' --status ok"
+  if does not exist then restart
+````
+
+### Explicit configuration
+
+You control settings like `hostname`, `service` and `description`.
+
+````
+check process NginX
+  with pidfile /run/nginx.pid
+  start program = "/etc/init.d/nginx start" with timeout 30 seconds
+  stop program = "/etc/init.d/nginx stop" with timeout 30 seconds
+  if does not exist for 1 cycle
+    then exec "/usr/local/rbenv/shims/monit2slack --webhook 'https://hooks.slack.com/services/xxx/xxx/xxx' --host MyServer --service NginX --status error --text 'Process NginX is down'"
     else if succeeded for 1 cycle then exec "monit2slack --webhook 'https://hooks.slack.com/services/xxx/xxx/xxx' --host MyServer --service NginX --status ok --text 'Process NginX is up'"
   if does not exist then restart
 ````
