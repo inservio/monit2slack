@@ -57,6 +57,10 @@ module Monit2Slack
 
     opt_parser.parse!
 
+    options[:service] ||= ENV['MONIT_SERVICE']
+
+    options[:host] ||= ENV['MONIT_HOST']
+
     options[:color] ||= case options[:status]
     when "error"
       "danger"
@@ -99,7 +103,7 @@ module Monit2Slack
         defaults channel: options[:channel],
         username: options[:username]
       end
-      notifier.post text: "Message from Monit", icon_emoji: options[:emoji] if options[:text] && options[:emoji]
+      notifier.post text: "Message from Monit: #{ENV['MONIT_DESCRIPTION']}", icon_emoji: options[:emoji] if options[:text] && options[:emoji]
       notifier.post attachments: [attachment] if attachment
       notifier.ping options[:ping] if options[:ping]
     end
