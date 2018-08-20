@@ -81,9 +81,9 @@ module Monit2Slack
 
     options[:text] ||= case options[:status]
     when "error"
-      "Error, process is down."
+      "Error."
     when 'ok'
-      'Status is OK, process seems to be running.'
+      'Status is OK.'
     else
       'Not sure.'
     end
