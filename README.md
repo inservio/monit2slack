@@ -83,7 +83,6 @@ check filesystem rootfs with path /
 if space usage > 80%
 then exec "/usr/local/rbenv/shims/monit2slack --webhook 'https://hooks.slack.com/services/xx/xx/xx' --status error"
 else if succeeded then exec "/usr/local/rbenv/shims/monit2slack --webhook 'https://hooks.slack.com/services/xx/xx/xx' --status ok"
-
 ````
 
 ## License
