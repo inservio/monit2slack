@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["h.nedim@gmail.com"]
 
   spec.summary       = %q{Post monit status messages to Slack.}
-  spec.description   = %q{Post monit status messages to Slack.}
+  spec.description   = %q{Post monit status messages to Slack. If used implicitly, monit environment variables will be used to populate the messages sent to Slack}
   spec.homepage      = "https://github.com/inservio/monit2slack"
   spec.license       = "MIT"
 
