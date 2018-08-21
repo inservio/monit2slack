@@ -42,9 +42,11 @@ require "monit2slack"
 Monit2Slack::Post
 ````
 
-## Monit configuration file
+## Monit configuration examples
 
-### Implicit configuration
+### Process monitoring
+
+#### Implicit configuration
 
 In this case `hostname`, `service` and `description` gets read from the environment variables that monit provides.
 
@@ -59,7 +61,7 @@ check process NginX
   if does not exist then restart
 ````
 
-### Explicit configuration
+#### Explicit configuration
 
 You control settings like `hostname`, `service` and `description`.
 
@@ -72,6 +74,16 @@ check process NginX
     then exec "/usr/local/rbenv/shims/monit2slack --webhook 'https://hooks.slack.com/services/xxx/xxx/xxx' --host MyServer --service NginX --status error --text 'Process NginX is down'"
     else if succeeded for 1 cycle then exec "monit2slack --webhook 'https://hooks.slack.com/services/xxx/xxx/xxx' --host MyServer --service NginX --status ok --text 'Process NginX is up'"
   if does not exist then restart
+````
+
+### Disk usage monitoring
+
+````
+check filesystem rootfs with path /
+if space usage > 80%
+then exec "/usr/local/rbenv/shims/monit2slack --webhook 'https://hooks.slack.com/services/xx/xx/xx' --status error"
+else if succeeded then exec "/usr/local/rbenv/shims/monit2slack --webhook 'https://hooks.slack.com/services/xx/xx/xx' --status ok"
+
 ````
 
 ## License
